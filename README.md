@@ -20,13 +20,6 @@
 - [StyleCI](https://styleci.io/account)
 - [SensioLabs Insight](https://insight.sensiolabs.com/projects/new)
 
-**Note:** Now that StyleCI and SensioLabs are enabled, replace their placeholders with the actual values in this file:
-
-- ```:styleci_repo```
-- ```:sensiolabs_project```
-
-**Note:** Delete all the above notes, including this one.
-
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
 PSRs you support to avoid any confusion with users and contributors.
 
@@ -78,18 +71,18 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-travis]: https://img.shields.io/travis/cerbero90/api-client/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/cerbero90/api-client.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/cerbero90/api-client.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/:styleci_repo/shield
+[ico-styleci]: https://styleci.io/repos/56425283/shield
 [ico-downloads]: https://img.shields.io/packagist/dt/cerbero/api-client.svg?style=flat-square
 [ico-gratipay]: https://img.shields.io/gratipay/cerbero.svg?style=flat-square
-[ico-sensiolabs]: https://insight.sensiolabs.com/projects/:sensiolabs_project/big.png
+[ico-sensiolabs]: https://insight.sensiolabs.com/projects/9f58b026-0975-47f2-b7f2-2166a0064c75/big.png
 
 [link-author]: https://twitter.com/cerbero90
 [link-packagist]: https://packagist.org/packages/cerbero/api-client
 [link-travis]: https://travis-ci.org/cerbero90/api-client
 [link-scrutinizer]: https://scrutinizer-ci.com/g/cerbero90/api-client/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/cerbero90/api-client
-[link-styleci]: https://styleci.io/repos/:styleci_repo
+[link-styleci]: https://styleci.io/repos/56425283
 [link-downloads]: https://packagist.org/packages/cerbero/api-client
 [link-gratipay]: https://gratipay.com/cerbero
-[link-sensiolabs]: https://insight.sensiolabs.com/projects/:sensiolabs_project
+[link-sensiolabs]: https://insight.sensiolabs.com/projects/9f58b026-0975-47f2-b7f2-2166a0064c75
 [link-contributors]: ../../contributors
