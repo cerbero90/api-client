@@ -1,0 +1,49 @@
+{
+    "name": "cerbero/api-client",
+    "type": "library",
+    "description": "Framework agnostic base package to extend for creating custom API clients.",
+    "keywords": [
+        "cerbero",
+        "api-client",
+        "api",
+        "client",
+        "http"
+    ],
+    "homepage": "https://github.com/cerbero90/api-client",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrea Marco Sartori",
+            "email": "andrea.marco.sartori@gmail.com",
+            "homepage": "https://github.com/cerbero90",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "~5.5|~7.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec" : "^2.5",
+        "henrikbjorn/phpspec-code-coverage" : "^2.0",
+        "scrutinizer/ocular": "^1.1",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cerbero\\ApiClient\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cerbero\\ApiClient\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpspec run -vvv"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

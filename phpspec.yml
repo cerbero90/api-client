@@ -1,0 +1,12 @@
+suites:
+    main:
+        spec_path: tests
+        namespace: Cerbero\ApiClient
+        psr4_prefix: Cerbero\ApiClient
+extensions:
+    - PhpSpec\Extension\CodeCoverageExtension
+code_coverage:
+    format:
+      - clover
+    output:
+      clover: coverage.clover
