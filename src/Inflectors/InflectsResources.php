@@ -3,6 +3,7 @@
 namespace Cerbero\ApiClient\Inflectors;
 
 use BadMethodCallException;
+use Cerbero\ApiClient\Inflectors\Psr4ResourceInflector;
 
 /**
  * Trait to inflect resources.
@@ -41,7 +42,7 @@ trait InflectsResources
      */
     protected function defaultInflector()
     {
-        return new Psr4Inflector;
+        return new Psr4ResourceInflector;
     }
 
     /**
