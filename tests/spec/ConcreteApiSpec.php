@@ -15,6 +15,17 @@ class ConcreteApiSpec extends ObjectBehavior
     }
 
     /**
+     * @testdox    It uses v1 by default if no version has provided.
+     *
+     * @author    Andrea Marco Sartori
+     * @return    void
+     */
+    public function it_uses_v1_by_default_if_no_version_has_provided()
+    {
+        $this->version()->shouldReturn('v1');
+    }
+
+    /**
      * @testdox    It uses the Guzzle client by default if no client has provided.
      *
      * @author    Andrea Marco Sartori
