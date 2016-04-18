@@ -10,6 +10,22 @@ namespace Cerbero\ApiClient\Inflectors;
 class Psr4ResourceInflector implements ResourceInflectorInterface
 {
     /**
+     * The base namespace.
+     *
+     * @author  Andrea Marco Sartori
+     * @var     string
+     */
+    protected $namespace;
+
+    /**
+     * The version number.
+     *
+     * @author  Andrea Marco Sartori
+     * @var     string
+     */
+    protected $version;
+
+    /**
      * Set the base namespace.
      *
      * @author    Andrea Marco Sartori
@@ -18,7 +34,9 @@ class Psr4ResourceInflector implements ResourceInflectorInterface
      */
     public function namespace($namespace)
     {
-        //
+        $this->namespace = $namespace;
+
+        return $this;
     }
 
     /**
@@ -30,7 +48,9 @@ class Psr4ResourceInflector implements ResourceInflectorInterface
      */
     public function version($version)
     {
-        //
+        $this->version = ucfirst($version);
+
+        return $this;
     }
 
     /**
@@ -42,6 +62,8 @@ class Psr4ResourceInflector implements ResourceInflectorInterface
      */
     public function inflect($name)
     {
-        //
+        $segments = [$this->namespace, $this->version, ucfirst($name)];
+
+        return implode('\\', $segments);
     }
 }
