@@ -64,6 +64,6 @@ class Psr4ResourceInflector implements ResourceInflectorInterface
     {
         $segments = [$this->namespace, $this->version, ucfirst($name)];
 
-        return implode('\\', $segments);
+        return implode('\\', array_filter($segments));
     }
 }
