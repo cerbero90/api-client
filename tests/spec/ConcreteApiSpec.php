@@ -4,6 +4,7 @@ namespace spec\Cerbero\ApiClient;
 
 use Cerbero\ApiClient\Clients\ClientInterface;
 use Cerbero\ApiClient\Clients\GuzzleAdapter;
+use Cerbero\ApiClient\Inflectors\Psr4ResourceInflector;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -34,6 +35,16 @@ class ConcreteApiSpec extends ObjectBehavior
     public function it_uses_the_Guzzle_client_by_default_if_no_client_has_provided()
     {
         $this->client()->shouldBeAnInstanceOf(GuzzleAdapter::class);
+    }
+
+    /**
+     * @testdox    It uses the PSR4 inflector by default if no inflector has provided.
+     *
+     * @return    void
+     */
+    public function it_uses_the_PSR4_inflector_by_default_if_no_inflector_has_provided()
+    {
+        $this->inflector()->shouldBeAnInstanceOf(Psr4ResourceInflector::class);
     }
 
     /**

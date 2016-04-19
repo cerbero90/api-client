@@ -46,6 +46,16 @@ trait InflectsResources
     }
 
     /**
+     * Retrieve the resource inflector.
+     *
+     * @return    Cerbero\ApiClient\Inflectors\ResourceInflectorInterface
+     */
+    public function inflector()
+    {
+        return $this->inflector;
+    }
+
+    /**
      * Retrieve the resource to call by inflecting the given name.
      *
      * @author    Andrea Marco Sartori
