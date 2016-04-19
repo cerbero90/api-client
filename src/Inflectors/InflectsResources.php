@@ -65,14 +65,29 @@ trait InflectsResources
      */
     protected function inflectResource($name, array $arguments)
     {
-        $resource = $this->inflector->baseNamespace(get_called_class())
-                                    ->version($this->version())
-                                    ->inflect($name);
+        $resource = $this->inflectWithVersionIfAvailable($name);
 
         if (class_exists($resource)) {
             return new $resource($arguments);
         }
 
         throw new BadMethodCallException("The resource [$resource] does not exist.");
+    }
+
+    /**
+     * Retrieve the inflected resource with namespace if available.
+     *
+     * @param    string    $name
+     * @return    string
+     */
+    private function inflectWithVersionIfAvailable($name)
+    {
+        $inflection = $this->inflector()->baseNamespace(get_called_class());
+
+        if (method_exists($this, 'version')) {
+            $inflection->version($this->version());
+        }
+
+        return $inflection->inflect($name);
     }
 }
