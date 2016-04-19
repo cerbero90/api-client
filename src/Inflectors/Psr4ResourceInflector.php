@@ -32,7 +32,7 @@ class Psr4ResourceInflector implements ResourceInflectorInterface
      * @param    string    $namespace
      * @return    $this
      */
-    public function namespace($namespace)
+    public function baseNamespace($namespace)
     {
         $this->namespace = $namespace;
 

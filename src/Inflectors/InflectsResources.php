@@ -55,7 +55,7 @@ trait InflectsResources
      */
     protected function inflectResource($name, array $arguments)
     {
-        $resource = $this->inflector->namespace(get_called_class())
+        $resource = $this->inflector->baseNamespace(get_called_class())
                                     ->version($this->version())
                                     ->inflect($name);
 

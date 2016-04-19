@@ -16,7 +16,7 @@ interface ResourceInflectorInterface
      * @param    string    $namespace
      * @return    $this
      */
-    public function namespace($namespace);
+    public function baseNamespace($namespace);
 
     /**
      * Set the version number.
