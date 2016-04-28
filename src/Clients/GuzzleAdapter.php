@@ -2,6 +2,7 @@
 
 namespace Cerbero\FluentApi\Clients;
 
+use Closure;
 use GuzzleHttp\ClientInterface as Guzzle;
 use Guzzle\Http\Client;
 
@@ -10,7 +11,7 @@ use Guzzle\Http\Client;
  *
  * @author    Andrea Marco Sartori
  */
-class GuzzleAdapter implements ClientInterface
+class GuzzleAdapter implements AsyncClientInterface
 {
     /**
      * The Guzzle client.
@@ -33,7 +34,7 @@ class GuzzleAdapter implements ClientInterface
     }
 
     /**
-     * Process the HTTP request.
+     * Process the HTTP request synchronously.
      *
      * @author    Andrea Marco Sartori
      * @param    string    $verb
@@ -44,5 +45,21 @@ class GuzzleAdapter implements ClientInterface
     public function call($verb, $endpoint, array $options = [])
     {
         return $this->client->request($verb, $endpoint, $options);
+    }
+
+    /**
+     * Process the HTTP request asynchronously.
+     *
+     * @author    Andrea Marco Sartori
+     * @param    string    $verb
+     * @param    string    $endpoint
+     * @param    array    $options
+     * @param    Closure    $success
+     * @param    Closure|null    $failure
+     * @return    mixed
+     */
+    public function then($verb, $endpoint, array $options = [], Closure $success, Closure $failure = null)
+    {
+        return $this->client->requestAsync($verb, $endpoint, $options)->then($success, $failure);
     }
 }
