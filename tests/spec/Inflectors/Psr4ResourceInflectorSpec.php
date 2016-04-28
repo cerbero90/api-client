@@ -7,7 +7,7 @@ use Prophecy\Argument;
 
 class Psr4ResourceInflectorSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Cerbero\FluentApi\Inflectors\Psr4ResourceInflector');
     }

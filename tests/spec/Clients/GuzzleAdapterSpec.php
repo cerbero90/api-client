@@ -20,7 +20,7 @@ class GuzzleAdapterSpec extends ObjectBehavior
         $this->beConstructedWith($client);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Cerbero\FluentApi\Clients\GuzzleAdapter');
     }

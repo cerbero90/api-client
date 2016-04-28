@@ -17,7 +17,7 @@ class RequestSpec extends ObjectBehavior
         $this->beConstructedWith('url/');
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Cerbero\FluentApi\Requests\Request');
     }

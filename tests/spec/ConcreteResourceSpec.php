@@ -21,7 +21,7 @@ class ConcreteResourceSpec extends ObjectBehavior
         $this->beConstructedWith(22);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Cerbero\FluentApi\ConcreteResource');
     }
