@@ -10,7 +10,7 @@ namespace Cerbero\FluentApi\Clients;
 interface ClientInterface
 {
     /**
-     * Process the HTTP request.
+     * Process the HTTP request synchronously.
      *
      * @author    Andrea Marco Sartori
      * @param    string    $verb
