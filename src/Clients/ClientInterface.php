@@ -1,6 +1,6 @@
 <?php
 
-namespace Cerbero\ApiClient\Clients;
+namespace Cerbero\FluentApi\Clients;
 
 /**
  * Interface for HTTP clients.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cerbero\ApiClient\Clients;
+namespace Cerbero\FluentApi\Clients;
 
 use GuzzleHttp\ClientInterface as Guzzle;
 use Guzzle\Http\Client;

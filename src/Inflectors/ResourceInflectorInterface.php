@@ -1,6 +1,6 @@
 <?php
 
-namespace Cerbero\ApiClient\Inflectors;
+namespace Cerbero\FluentApi\Inflectors;
 
 /**
  * Interface for resource inflectors.

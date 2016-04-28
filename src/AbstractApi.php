@@ -1,11 +1,16 @@
 <?php
 
-namespace Cerbero\ApiClient;
+namespace Cerbero\FluentApi;
 
-use Cerbero\ApiClient\Clients\ClientInterface;
-use Cerbero\ApiClient\Clients\GuzzleAdapter;
-use Cerbero\ApiClient\Inflectors\InflectsResources;
-use Cerbero\ApiClient\Inflectors\ResourceInflectorInterface;
+use BadMethodCallException;
+use Cerbero\FluentApi\Clients\AsyncClientInterface;
+use Cerbero\FluentApi\Clients\ClientInterface;
+use Cerbero\FluentApi\Clients\GuzzleAdapter;
+use Cerbero\FluentApi\Inflectors\Psr4ResourceInflector;
+use Cerbero\FluentApi\Inflectors\ResourceInflectorInterface;
+use Cerbero\FluentApi\Requests\Request;
+use Closure;
+use Exception;
 use GuzzleHttp\Client;
 
 /**

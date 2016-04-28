@@ -5,7 +5,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Cerbero\ApiClient\GitHub;
+use Cerbero\FluentApi\GitHub;
 use GuzzleHttp\Promise\PromiseInterface;
 
 /**
@@ -16,7 +16,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * The API implementation.
      *
-     * @var Cerbero\ApiClient\AbstractApi
+     * @var Cerbero\FluentApi\AbstractApi
      */
     protected $api;
 

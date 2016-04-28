@@ -1,15 +1,15 @@
 {
-    "name": "cerbero/api-client",
+    "name": "cerbero/fluent-api",
     "type": "library",
     "description": "Framework agnostic base package to extend for creating custom API clients.",
     "keywords": [
         "cerbero",
-        "api-client",
+        "fluent-api",
         "api",
         "client",
         "http"
     ],
-    "homepage": "https://github.com/cerbero90/api-client",
+    "homepage": "https://github.com/cerbero90/fluent-api",
     "license": "MIT",
     "authors": [
         {
@@ -32,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Cerbero\\ApiClient\\": "src"
+            "Cerbero\\FluentApi\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Cerbero\\ApiClient\\": "tests"
+            "Cerbero\\FluentApi\\": "tests"
         }
     },
     "scripts": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cerbero\ApiClient;
+namespace Cerbero\FluentApi;
 
 /**
  * Dummy class for testing AbstractApi.

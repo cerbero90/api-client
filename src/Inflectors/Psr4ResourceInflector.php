@@ -1,6 +1,6 @@
 <?php
 
-namespace Cerbero\ApiClient\Inflectors;
+namespace Cerbero\FluentApi\Inflectors;
 
 /**
  * Resource inflector using the PSR-4 standard.

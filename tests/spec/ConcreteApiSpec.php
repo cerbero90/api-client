@@ -1,10 +1,16 @@
 <?php
 
-namespace spec\Cerbero\ApiClient;
+namespace spec\Cerbero\FluentApi;
 
-use Cerbero\ApiClient\Clients\ClientInterface;
-use Cerbero\ApiClient\Clients\GuzzleAdapter;
-use Cerbero\ApiClient\Inflectors\Psr4ResourceInflector;
+use BadMethodCallException;
+use Cerbero\FluentApi\Clients\AsyncClientInterface;
+use Cerbero\FluentApi\Clients\ClientInterface;
+use Cerbero\FluentApi\Clients\GuzzleAdapter;
+use Cerbero\FluentApi\ConcreteApi\DummyResource;
+use Cerbero\FluentApi\Inflectors\Psr4ResourceInflector;
+use Cerbero\FluentApi\Inflectors\ResourceInflectorInterface;
+use Cerbero\FluentApi\Requests\Request;
+use Exception;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -12,7 +18,7 @@ class ConcreteApiSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Cerbero\ApiClient\ConcreteApi');
+        $this->shouldHaveType('Cerbero\FluentApi\ConcreteApi');
     }
 
     /**
