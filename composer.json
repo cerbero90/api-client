@@ -1,15 +1,15 @@
 {
-    "name": "cerbero/api-client",
+    "name": "cerbero/fluent-api",
     "type": "library",
     "description": "Framework agnostic base package to extend for creating custom API clients.",
     "keywords": [
         "cerbero",
-        "api-client",
+        "fluent-api",
         "api",
         "client",
         "http"
     ],
-    "homepage": "https://github.com/cerbero90/api-client",
+    "homepage": "https://github.com/cerbero90/fluent-api",
     "license": "MIT",
     "authors": [
         {
@@ -20,22 +20,24 @@
         }
     ],
     "require": {
-        "php" : "~5.5|~7.0"
+        "php" : "~5.6|~7.0",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "phpspec/phpspec" : "^2.5",
         "henrikbjorn/phpspec-code-coverage" : "^2.0",
         "scrutinizer/ocular": "^1.1",
-        "squizlabs/php_codesniffer": "^2.3"
+        "squizlabs/php_codesniffer": "^2.3",
+        "behat/behat": "^3.1"
     },
     "autoload": {
         "psr-4": {
-            "Cerbero\\ApiClient\\": "src"
+            "Cerbero\\FluentApi\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Cerbero\\ApiClient\\": "tests"
+            "Cerbero\\FluentApi\\": "tests"
         }
     },
     "scripts": {

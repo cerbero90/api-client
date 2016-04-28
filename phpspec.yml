@@ -1,8 +1,8 @@
 suites:
     main:
         spec_path: tests
-        namespace: Cerbero\ApiClient
-        psr4_prefix: Cerbero\ApiClient
+        namespace: Cerbero\FluentApi
+        psr4_prefix: Cerbero\FluentApi
 extensions:
     - PhpSpec\Extension\CodeCoverageExtension
 code_coverage:
