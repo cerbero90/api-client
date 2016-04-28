@@ -18,41 +18,38 @@ use GuzzleHttp\Client;
  *
  * @author    Andrea Marco Sartori
  */
-abstract class AbstractApi
+abstract class AbstractApi extends VersionableRequestMaker
 {
-    use InflectsResources;
-
-    /**
-     * The version number of the API.
-     *
-     * @author  Andrea Marco Sartori
-     * @var     string
-     */
-    protected $version;
-
     /**
      * The HTTP client.
      *
      * @author  Andrea Marco Sartori
-     * @var     Cerbero\ApiClient\Clients\ClientInterface
+     * @var     Cerbero\FluentApi\Clients\ClientInterface
      */
     protected $client;
 
     /**
-     * The API base URL. eg: https://test.com:123/api/v1
+     * The resource inflector.
      *
      * @author  Andrea Marco Sartori
-     * @var     string
+     * @var     Cerbero\FluentApi\Inflectors\ResourceInflectorInterface
      */
-    protected $url;
+    protected $inflector;
+
+    /**
+     * The latest resource invoked.
+     *
+     * @var Cerbero\FluentApi\AbstractResource|null
+     */
+    protected $resource;
 
     /**
      * Set the dependencies.
      *
      * @author    Andrea Marco Sartori
      * @param    string|null    $version
-     * @param    Cerbero\ApiClient\Clients\ClientInterface|null    $client
-     * @param    Cerbero\ApiClient\Inflectors\ResourceInflectorInterface|null    $inflector
+     * @param    Cerbero\FluentApi\Clients\ClientInterface|null    $client
+     * @param    Cerbero\FluentApi\Inflectors\ResourceInflectorInterface|null    $inflector
      * @return    void
      */
     public function __construct(
@@ -60,111 +57,27 @@ abstract class AbstractApi
         ClientInterface $client = null,
         ResourceInflectorInterface $inflector = null
     ) {
-        $this->setVersion($version)
-             ->setClient($client)
-             ->setInflector($inflector);
+        $client    = $client    ?: $this->defaultClient();
+        $inflector = $inflector ?: $this->defaultInflector();
+
+        $this->setVersion($version)->setClient($client)->setInflector($inflector);
     }
 
     /**
-     * Dynamically call API endpoints.
+     * Dynamically resolve resources.
      *
      * @author    Andrea Marco Sartori
      * @param    string    $name
-     * @return    mixed
-     */
-    public function __call($name, array $arguments)
-    {
-        $resource = $this->inflectResource($name, $arguments);
-
-        $resource->request($request = new Request);
-
-        return $this->client->call(
-            $request->verb(), $request->endpoint(), $request->options()
-        );
-    }
-
-    /**
-     * Set the version number.
-     *
-     * @author    Andrea Marco Sartori
-     * @param    string|null    $version
+     * @param    array    $parameters
      * @return    $this
      */
-    public function setVersion($version)
+    public function __call($name, array $parameters)
     {
-        $this->version = $version ?: $this->defaultVersion();
+        $class = $this->inflectResource($name);
 
-        return $this;
-    }
+        $this->resource = new $class(...$parameters);
 
-    /**
-     * Retrieve the default version number.
-     *
-     * @author    Andrea Marco Sartori
-     * @return    string
-     */
-    protected function defaultVersion()
-    {
-        return 'v1';
-    }
-
-    /**
-     * Set the HTTP client.
-     *
-     * @author    Andrea Marco Sartori
-     * @param    Cerbero\ApiClient\Clients\ClientInterface|null    $client
-     * @return    $this
-     */
-    public function setClient(ClientInterface $client = null)
-    {
-        $this->client = $client ?: $this->defaultClient();
-
-        return $this;
-    }
-
-    /**
-     * Retrieve the default HTTP client to use if none is provided.
-     *
-     * @author    Andrea Marco Sartori
-     * @return    Cerbero\ApiClient\Clients\ClientInterface
-     */
-    protected function defaultClient()
-    {
-        return new GuzzleAdapter(new Client);
-    }
-
-    /**
-     * Retrieve the version number.
-     *
-     * @author    Andrea Marco Sartori
-     * @return    string
-     */
-    public function version()
-    {
-        return $this->version;
-    }
-
-    /**
-     * Retrieve the HTTP client.
-     *
-     * @author    Andrea Marco Sartori
-     * @return    Cerbero\ApiClient\Clients\ClientInterface
-     */
-    public function client()
-    {
-        return $this->client;
-    }
-
-    /**
-     * Set the base URL.
-     *
-     * @author    Andrea Marco Sartori
-     * @param    string    $url
-     * @return    $this
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
+        $this->request = $this->resource->fillRequest($this->getRequest());
 
         return $this;
     }
@@ -175,8 +88,156 @@ abstract class AbstractApi
      * @author    Andrea Marco Sartori
      * @return    string
      */
-    public function url()
+    abstract public function getUrl();
+
+    /**
+     * Retrieve the resource to call by inflecting the given name.
+     *
+     * @author    Andrea Marco Sartori
+     * @param    string    $name
+     * @return    Cerbero\FluentApi\Resources\ResourceInterface
+     */
+    protected function inflectResource($name)
     {
-        return $this->url;
+        $target = $this->resource ?: $this;
+
+        $resource = $this->getInflector()->baseNamespace(get_class($target))
+                                         ->version($target->getVersion())
+                                         ->inflect($name);
+
+        if (class_exists($resource)) {
+            return $resource;
+        }
+
+        throw new BadMethodCallException("The resource [$resource] does not exist.");
+    }
+
+    /**
+     * Retrieve the resource inflector.
+     *
+     * @return    Cerbero\FluentApi\Inflectors\ResourceInflectorInterface
+     */
+    public function getInflector()
+    {
+        return $this->inflector ?: $this->defaultInflector();
+    }
+
+    /**
+     * Retrieve the default inflector.
+     *
+     * @author    Andrea Marco Sartori
+     * @return    Cerbero\FluentApi\Inflectors\ResourceInflectorInterface
+     */
+    protected function defaultInflector()
+    {
+        return new Psr4ResourceInflector;
+    }
+
+    /**
+     * Set the resource inflector.
+     *
+     * @author    Andrea Marco Sartori
+     * @param    Cerbero\FluentApi\Inflectors\ResourceInflectorInterface    $inflector
+     * @return    $this
+     */
+    public function setInflector(ResourceInflectorInterface $inflector)
+    {
+        $this->inflector = $inflector;
+
+        return $this;
+    }
+
+    /**
+     * Perform a synchronous call to the eventual endpoint.
+     *
+     * @return    Psr\Http\Message\ResponseInterface
+     */
+    public function call()
+    {
+        return $this->performCall();
+    }
+
+    /**
+     * Perform an HTTP call by using the client.
+     *
+     * @param    Closure|null    $success
+     * @param    Closure|null    $failure
+     * @return    mixed
+     */
+    private function performCall(Closure $success = null, Closure $failure = null)
+    {
+        $parameters = [
+            $this->request->verb(), $this->request->endpoint(), $this->request->options(),
+        ];
+
+        if ($success) {
+            array_push($parameters, $success, $failure);
+        }
+
+        return call_user_func_array(
+            [$this->getClient(), $success ? 'then' : 'call'], $parameters
+        );
+    }
+
+    /**
+     * Perform an asynchronous call to the eventual endpoint.
+     *
+     * @param    Closure    $success
+     * @param    Closure|null    $failure
+     * @return    mixed
+     */
+    public function then(Closure $success, Closure $failure = null)
+    {
+        if (! $this->getClient() instanceof AsyncClientInterface) {
+            throw new Exception("The set client can't perform asynchronous calls.");
+        }
+
+        return $this->performCall($success, $failure);
+    }
+
+    /**
+     * Retrieve the request to pass through resources.
+     *
+     * @return    Cerbero\FluentApi\Requests\Request
+     */
+    public function getRequest()
+    {
+        return $this->request ?: new Request($this->getUrl());
+    }
+
+    /**
+     * Set the HTTP client.
+     *
+     * @author    Andrea Marco Sartori
+     * @param    Cerbero\FluentApi\Clients\ClientInterface    $client
+     * @return    $this
+     */
+    public function setClient(ClientInterface $client)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the HTTP client.
+     *
+     * @author    Andrea Marco Sartori
+     * @return    Cerbero\FluentApi\Clients\ClientInterface
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Retrieve the default HTTP client to use if none is provided.
+     *
+     * @author    Andrea Marco Sartori
+     * @return    Cerbero\FluentApi\Clients\ClientInterface
+     */
+    protected function defaultClient()
+    {
+        return new GuzzleAdapter(new Client);
     }
 }
