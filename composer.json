@@ -1,7 +1,7 @@
 {
     "name": "cerbero/fluent-api",
     "type": "library",
-    "description": "Framework agnostic base package to extend for creating custom API clients.",
+    "description": "Framework agnostic base package to extend for creating fluent APIs from scratch or on top of existing ones.",
     "keywords": [
         "cerbero",
         "fluent-api",
