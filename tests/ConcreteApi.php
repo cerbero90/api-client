@@ -9,5 +9,14 @@ namespace Cerbero\FluentApi;
  */
 class ConcreteApi extends AbstractApi
 {
-    //
+    /**
+     * Retrieve the base URL.
+     *
+     * @author    Andrea Marco Sartori
+     * @return    string
+     */
+    public function getUrl()
+    {
+        return 'http://test.com/v1/';
+    }
 }
