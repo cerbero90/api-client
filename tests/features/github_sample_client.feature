@@ -17,3 +17,13 @@ Feature: GitHub client
     Given I have an implementation of GitHub APIs "v3"
     When I asynchronously call the endpoint to show the user "cerbero90" gists
     Then I should see a promise as a response
+
+  Scenario: JSON response
+    Given I have an implementation of GitHub APIs "v3"
+    When I call the endpoint to show the user "cerbero90" gists as a JSON
+    Then I should see a correct JSON response
+
+  Scenario: Array response
+    Given I have an implementation of GitHub APIs "v3"
+    When I call the endpoint to show the user "cerbero90" gists as an array
+    Then I should see a correct array response
