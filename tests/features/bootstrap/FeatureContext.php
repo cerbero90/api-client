@@ -93,4 +93,44 @@ class FeatureContext implements Context, SnippetAcceptingContext
             throw new Exception('Failed asserting that the response is a promise.');
         }
     }
+
+    /**
+     * @When I call the endpoint to show the user :user gists as a JSON
+     */
+    public function iCallTheEndpointToShowTheUserGistsAsAJson($user)
+    {
+        $this->response = $this->api->users($user)->gists()->toJson();
+    }
+
+    /**
+     * @Then I should see a correct JSON response
+     */
+    public function iShouldSeeACorrectJsonResponse()
+    {
+        foreach ($this->response as $item) {
+            if (! $item instanceof StdClass) {
+                throw new Exception('Failed asserting that the response has been decoded to JSON.');
+            }
+        }
+    }
+
+    /**
+     * @When I call the endpoint to show the user :user gists as an array
+     */
+    public function iCallTheEndpointToShowTheUserGistsAsAnArray($user)
+    {
+        $this->response = $this->api->users($user)->gists()->toArray();
+    }
+
+    /**
+     * @Then I should see a correct array response
+     */
+    public function iShouldSeeACorrectArrayResponse()
+    {
+        foreach ($this->response as $item) {
+            if (! is_array($item)) {
+                throw new Exception('Failed asserting that the response has been decoded to an array.');
+            }
+        }
+    }
 }
