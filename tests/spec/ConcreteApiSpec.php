@@ -11,6 +11,10 @@ use Cerbero\FluentApi\Inflectors\Psr4ResourceInflector;
 use Cerbero\FluentApi\Inflectors\ResourceInflectorInterface;
 use Cerbero\FluentApi\Requests\Request;
 use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -264,5 +268,59 @@ class ConcreteApiSpec extends ObjectBehavior
         $this->setClient($client);
 
         $this->versionedResource()->nestedResource()->then($success, $failure)->shouldReturn('response');
+    }
+
+    /**
+     * @testdox    It transforms the response into a JSON object.
+     *
+     * @return    void
+     */
+    public function it_transforms_the_response_into_a_JSON_object()
+    {
+        $client = $this->getMockedClientWithBody(['foo' => 'bar']);
+
+        $this->setClient($client);
+
+        $json = $this->dummyResource()->toJson();
+
+        $json->foo->shouldReturn('bar');
+    }
+
+    /**
+     * Retrieve the mock of the client and make it return the given body.
+     *
+     * @param    mixed    $body
+     * @return    GuzzleHttp\Client
+     */
+    private function getMockedClientWithBody($body)
+    {
+        if (is_array($body)) {
+            $body = json_encode($body);
+        }
+
+        $mock = new MockHandler([
+            new Response(200, [], $body)
+        ]);
+
+        $handler = HandlerStack::create($mock);
+        $client = new Client(compact('handler'));
+
+        return new GuzzleAdapter($client);
+    }
+
+    /**
+     * @testdox    It transforms the response into an array.
+     *
+     * @return    void
+     */
+    public function it_transforms_the_response_into_an_array()
+    {
+        $array = ['foo' => 'bar'];
+
+        $client = $this->getMockedClientWithBody($array);
+
+        $this->setClient($client);
+
+        $this->dummyResource()->toArray()->shouldReturn($array);
     }
 }
