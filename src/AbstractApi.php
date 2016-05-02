@@ -196,6 +196,39 @@ abstract class AbstractApi extends VersionableRequestMaker
     }
 
     /**
+     * Retrieve the body of the response as a JSON object.
+     *
+     * @return    \StdClass
+     */
+    public function toJson()
+    {
+        return $this->decodeBody();
+    }
+
+    /**
+     * Retrieve the decoded response body.
+     *
+     * @param    boolean    $toArray
+     * @return    \StdClass|array
+     */
+    private function decodeBody($toArray = false)
+    {
+        $body = $this->call()->getBody()->getContents();
+
+        return json_decode($body, $toArray);
+    }
+
+    /**
+     * Retrieve the body of the response as an array.
+     *
+     * @return    array
+     */
+    public function toArray()
+    {
+        return $this->decodeBody(true);
+    }
+
+    /**
      * Retrieve the request to pass through resources.
      *
      * @return    Cerbero\FluentApi\Requests\Request
