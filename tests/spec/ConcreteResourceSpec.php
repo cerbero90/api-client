@@ -76,6 +76,20 @@ class ConcreteResourceSpec extends ObjectBehavior
     }
 
     /**
+     * @testdox    It sets and retrieves a singular HTTP call option.
+     *
+     * @return    void
+     */
+    public function it_sets_and_retrieves_a_singular_HTTP_call_option()
+    {
+        $this->getOption('foo')->shouldReturn(null);
+
+        $this->setOption('foo', 'bar')->shouldReturn($this);
+
+        $this->getOption('foo')->shouldReturn('bar');
+    }
+
+    /**
      * @testdox    It sets and retrieves the version of the resource to use.
      *
      * @author    Andrea Marco Sartori

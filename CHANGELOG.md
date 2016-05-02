@@ -13,3 +13,8 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ### Added
 - Helpers to turn client responses into JSON and array.
+
+## 1.2.0 - 2016-05-02
+
+### Added
+- Resource can also set and retrieve a singular HTTP option.

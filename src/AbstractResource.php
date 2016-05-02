@@ -86,4 +86,33 @@ abstract class AbstractResource extends VersionableRequestMaker
     {
         return $this->options;
     }
+
+    /**
+     * Set a singular HTTP call option.
+     *
+     * @param    string    $option
+     * @param    string    $value
+     * @return    $this
+     */
+    public function setOption($option, $value)
+    {
+        $this->options[$option] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Retrieve a singular HTTP call option.
+     *
+     * @param    string    $option
+     * @return    mixed
+     */
+    public function getOption($option)
+    {
+        if (isset($this->options[$option])) {
+            return $this->options[$option];
+        }
+
+        return null;
+    }
 }
