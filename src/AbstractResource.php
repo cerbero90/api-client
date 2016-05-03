@@ -42,6 +42,17 @@ abstract class AbstractResource extends VersionableRequestMaker
     }
 
     /**
+     * Update the given request with the resource options.
+     *
+     * @param    Cerbero\FluentApi\Requests\Request    $request
+     * @return    Cerbero\FluentApi\Requests\Request
+     */
+    public function updateOptions(Request $request)
+    {
+        return $this->request = $request->setOptions($this->getOptions());
+    }
+
+    /**
      * Fill the given request with the resource details.
      *
      * @param    Cerbero\FluentApi\Requests\Request    $request
@@ -49,9 +60,9 @@ abstract class AbstractResource extends VersionableRequestMaker
      */
     public function fillRequest(Request $request)
     {
-        return $this->request = $request->setVerb($this->getVerb())
-                                        ->setOptions($this->getOptions())
-                                        ->setEndpoint($this->getEndpoint());
+        return $this->request = $this->updateOptions($request)
+                                     ->setVerb($this->getVerb())
+                                     ->setEndpoint($this->getEndpoint());
     }
 
     /**

@@ -52,6 +52,20 @@ class ConcreteResourceSpec extends ObjectBehavior
     }
 
     /**
+     * @testdox    It updates the request options.
+     *
+     * @return    void
+     */
+    public function it_updates_the_request_options()
+    {
+        $request = new Request('foo');
+
+        $this->updateOptions($request);
+
+        $this->getRequest()->options()->shouldReturn(['foo']);
+    }
+
+    /**
      * @testdox    It retrieves the verb.
      *
      * @return    void
