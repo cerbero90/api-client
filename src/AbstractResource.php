@@ -107,10 +107,6 @@ abstract class AbstractResource extends VersionableRequestMaker
      */
     public function setOption($option, $value)
     {
-        if (is_array($value)) {
-            $value = array_merge((array) $this->getOption($option), $value);
-        }
-
         $this->options[$option] = $value;
 
         return $this;
