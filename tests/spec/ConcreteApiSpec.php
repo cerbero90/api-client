@@ -165,6 +165,18 @@ class ConcreteApiSpec extends ObjectBehavior
     }
 
     /**
+     * @testdox    It calls custom methods of resolved resources.
+     *
+     * @return    void
+     */
+    public function it_calls_custom_methods_of_resolved_resources()
+    {
+        $this->dummyResource()
+             ->shouldThrow(new Exception('called custom method with "foo"'))
+             ->duringCustomMethod('foo');
+    }
+
+    /**
      * @testdox    It performs a synchronous HTTP call.
      *
      * @return    void

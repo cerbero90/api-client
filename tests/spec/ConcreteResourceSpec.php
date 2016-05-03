@@ -52,6 +52,20 @@ class ConcreteResourceSpec extends ObjectBehavior
     }
 
     /**
+     * @testdox    It updates the request options.
+     *
+     * @return    void
+     */
+    public function it_updates_the_request_options()
+    {
+        $request = new Request('foo');
+
+        $this->updateOptions($request);
+
+        $this->getRequest()->options()->shouldReturn(['foo']);
+    }
+
+    /**
      * @testdox    It retrieves the verb.
      *
      * @return    void
@@ -68,11 +82,9 @@ class ConcreteResourceSpec extends ObjectBehavior
      */
     public function it_sets_and_retrieves_the_HTTP_call_options()
     {
-        $this->getOptions()->shouldReturn([]);
+        $this->setOptions(['bar'])->shouldReturn($this);
 
-        $this->setOptions(['foo'])->shouldReturn($this);
-
-        $this->getOptions()->shouldReturn(['foo']);
+        $this->getOptions()->shouldReturn(['foo', 'bar']);
     }
 
     /**

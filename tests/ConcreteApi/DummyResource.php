@@ -2,6 +2,7 @@
 
 namespace Cerbero\FluentApi\ConcreteApi;
 
+use Exception;
 use Cerbero\FluentApi\AbstractResource;
 use Cerbero\FluentApi\Requests\Request;
 
@@ -26,5 +27,16 @@ class DummyResource extends AbstractResource
     public function getEndpoint()
     {
         return 'resources';
+    }
+
+    /**
+     * Dummy method to test resource custom methods.
+     *
+     * @param    mixed    $input
+     * @return    string
+     */
+    public function customMethod($input)
+    {
+        throw new Exception("called custom method with \"{$input}\"");
     }
 }

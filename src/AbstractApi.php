@@ -73,13 +73,43 @@ abstract class AbstractApi extends VersionableRequestMaker
      */
     public function __call($name, array $parameters)
     {
-        $class = $this->inflectResource($name);
+        if ($this->resource && method_exists($this->resource, $name)) {
+            $this->request = $this->getRequestFromPreviousResource($name, $parameters);
+        } else {
+            $this->request = $this->getRequestByResolvingResource($name, $parameters);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the updated request from the previously resolved resource.
+     *
+     * @param    string    $method
+     * @param    array    $parameters
+     * @return    Cerbero\FluentApi\Requests\Request
+     */
+    private function getRequestFromPreviousResource($method, array $parameters)
+    {
+        call_user_func_array([$this->resource, $method], $parameters);
+
+        return $this->resource->updateOptions($this->getRequest());
+    }
+
+    /**
+     * Retrieve the request from the newly resolved resource.
+     *
+     * @param    string    $resource
+     * @param    array    $parameters
+     * @return    Cerbero\FluentApi\Requests\Request
+     */
+    private function getRequestByResolvingResource($resource, array $parameters)
+    {
+        $class = $this->inflectResource($resource);
 
         $this->resource = new $class(...$parameters);
 
-        $this->request = $this->resource->fillRequest($this->getRequest());
-
-        return $this;
+        return $this->resource->fillRequest($this->getRequest());
     }
 
     /**
