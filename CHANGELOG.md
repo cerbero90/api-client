@@ -18,3 +18,9 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ### Added
 - Resource can also set and retrieve a singular HTTP option.
+
+## 1.3.0 - 2016-05-03
+
+### Added
+- APIs can call resources custom methods.
+- Requests and resources merge options they receive.
