@@ -26,6 +26,13 @@ class ConcreteResource extends AbstractResource
     protected $id;
 
     /**
+     * The HTTP call options.
+     *
+     * @var array
+     */
+    protected $options = ['foo'];
+
+    /**
      * Set the dependencies.
      *
      * @param    integer|null    $id
