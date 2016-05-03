@@ -67,4 +67,18 @@ class RequestSpec extends ObjectBehavior
 
         $this->options()->shouldReturn(['foo']);
     }
+
+    /**
+     * @testdox    It merges existing options with the new ones.
+     *
+     * @return    void
+     */
+    public function it_merges_existing_options_with_the_new_ones()
+    {
+        $this->setOptions(['foo' => ['bar' => 'baz']])->shouldReturn($this);
+
+        $this->setOptions(['foo' => ['bar' => 'zab']])->shouldReturn($this);
+
+        $this->options()->shouldReturn(['foo' => ['bar' => ['baz', 'zab']]]);
+    }
 }
