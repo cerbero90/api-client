@@ -24,3 +24,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Added
 - APIs can call resources custom methods.
 - Requests and resources merge options they receive.
+
+## 1.4.0 - 2016-05-04
+
+### Added
+- APIs retrieve the eventual URL of an endpoint.
+- Clients retrieve the query string parameters from the options.
+
+### Fixed
+- Resources method to set a singular option.
