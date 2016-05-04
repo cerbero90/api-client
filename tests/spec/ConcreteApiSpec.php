@@ -335,4 +335,36 @@ class ConcreteApiSpec extends ObjectBehavior
 
         $this->dummyResource()->toArray()->shouldReturn($array);
     }
+
+    /**
+     * @testdox    It returns the eventual API URL.
+     *
+     * @return    void
+     */
+    public function it_returns_the_eventual_API_URL(ClientInterface $client)
+    {
+        $client->getQueryByOptions([])->willReturn(['foo' => 'bar', 'baz' => 22]);
+
+        $this->setClient($client);
+
+        $url = 'http://test.com/v1/resources/nested?foo=bar&baz=22';
+
+        $this->dummyResource()->nestedResource()->toUrl()->shouldReturn($url);
+    }
+
+    /**
+     * @testdox    It retrieves the eventual API URL with no query string if not provided.
+     *
+     * @return    void
+     */
+    public function it_retrieves_the_eventual_API_URL_with_no_query_string_if_not_provided(ClientInterface $client)
+    {
+        $client->getQueryByOptions([])->willReturn([]);
+
+        $this->setClient($client);
+
+        $url = 'http://test.com/v1/resources/nested';
+
+        $this->dummyResource()->nestedResource()->toUrl()->shouldReturn($url);
+    }
 }

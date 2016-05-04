@@ -62,4 +62,15 @@ class GuzzleAdapter implements AsyncClientInterface
     {
         return $this->client->requestAsync($verb, $endpoint, $options)->then($success, $failure);
     }
+
+    /**
+     * Retrieve the query string parameters from the given options.
+     *
+     * @param    array    $options
+     * @return    array
+     */
+    public function getQueryByOptions(array $options)
+    {
+        return isset($options['query']) ? $options['query'] : [];
+    }
 }
