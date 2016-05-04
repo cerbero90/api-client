@@ -19,4 +19,12 @@ interface ClientInterface
      * @return    mixed
      */
     public function call($verb, $endpoint, array $options = []);
+
+    /**
+     * Retrieve the query string parameters from the given options.
+     *
+     * @param    array    $options
+     * @return    array
+     */
+    public function getQueryByOptions(array $options);
 }

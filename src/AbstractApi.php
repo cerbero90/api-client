@@ -259,6 +259,33 @@ abstract class AbstractApi extends VersionableRequestMaker
     }
 
     /**
+     * Retrieve the eventual API URL.
+     *
+     * @return    string
+     */
+    public function toUrl()
+    {
+        $options = $this->getRequest()->options();
+
+        $query = $this->getQueryByOptions($options);
+
+        return $this->getRequest()->endpoint() . $query;
+    }
+
+    /**
+     * Retrieve the query string parameters by the given options.
+     *
+     * @param    array    $options
+     * @return    string
+     */
+    private function getQueryByOptions(array $options)
+    {
+        $query = $this->getClient()->getQueryByOptions($options);
+
+        return empty($query) ? '' : '?' . http_build_query($query);
+    }
+
+    /**
      * Retrieve the request to pass through resources.
      *
      * @return    Cerbero\FluentApi\Requests\Request
