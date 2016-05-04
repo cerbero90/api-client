@@ -52,4 +52,16 @@ class GuzzleAdapterSpec extends ObjectBehavior
 
         $this->then('verb', 'endpoint', [], $success, $failure)->shouldReturn('foo');
     }
+
+    /**
+     * @testdox    It retrieves the query string parameters from the given options.
+     *
+     * @return    void
+     */
+    public function it_retrieves_the_query_string_parameters_from_the_given_options()
+    {
+        $this->getQueryByOptions(['foo'])->shouldReturn([]);
+
+        $this->getQueryByOptions(['query' => ['foo' => 'bar']])->shouldReturn(['foo' => 'bar']);
+    }
 }
